@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 
 struct estudiantes {
     char nombre[25];
