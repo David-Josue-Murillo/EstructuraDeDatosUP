@@ -10,9 +10,7 @@ struct estudiantes {
 
 int main() {
     // Variables
-    int i, j;
-    char  menorEdadEst[25];
-    struct estudiantes estudiantes_up[5], newEst;
+    struct estudiantes estudiantes_up[5];
 
     // Prototipos de funciones
     void capturarEst(struct estudiantes estudiantes_up[], int cantidadEst);
