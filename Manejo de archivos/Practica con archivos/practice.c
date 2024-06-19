@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main(void) { 
+int main() { 
     /*       captura datos desde teclado y los guarda en el archivo test.txt  */
     FILE *fp;
     char s[80];
