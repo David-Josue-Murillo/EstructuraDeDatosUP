@@ -22,7 +22,7 @@ int main() {
     }
 
     // Leer y desplegar cada línea
-    iterarArchivo(archivo);
+    iterarAr0chivo(archivo);
 
     // Cerrar el archivo
     fclose(archivo);
