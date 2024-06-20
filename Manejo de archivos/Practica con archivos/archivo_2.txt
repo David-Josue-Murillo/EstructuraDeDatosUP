@@ -1,0 +1,13 @@
+20 1650 David Murillo 
+19 1230 Josue Serrano
+22 656 Kasandra Caballero
+20 756 Daniela Madrid
+24 955 Augusto Gonzalez
+27 1060 Pacifico Castrellon
+23 1100 Florentico Carpintero
+31 1144 Mark Ruiz
+17 892 Ana Perez
+44 Sofia Reyes
+
+convertir este archivo en un archivo binario,
+y hacer este mismo trabajo pero con el archivo binario.
