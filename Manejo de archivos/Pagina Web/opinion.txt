@@ -1,0 +1,6 @@
+Al comienzo del curso, me resultó un tanto difícil comprender la sintaxis de C. 
+Sin embargo, con el tiempo, la elaboración de múltiples prácticas me ayudó a 
+entender y mejorar mi comprensión de dicha sintaxis. Seguir las clases con 
+frecuencia y enfrentar los diversos retos asignados por el profesor que impartía 
+el curso me permitió lograr una mejora significativa en el análisis de problemas 
+donde era necesario implementar la lógica.
