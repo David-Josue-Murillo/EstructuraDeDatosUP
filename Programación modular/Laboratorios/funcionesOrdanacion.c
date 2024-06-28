@@ -1,192 +1,89 @@
-/*
-En grupos de a lo sumo dos personas, elabore un programa que coloque elementos en un vector (numérico o de caracteres)
-de manera que los elementos siempre estén ordenados. A medida que entra un valor debe ser colocado en la posición
-correspondiente para mantener el orden de los elementos.
-*/
 #include <stdio.h>
 #include <stdlib.h>
 
-int main()
-{
-    // Declaración de variables
-    int listaDeNumeros[10], cantidadElementos, posicionVacia, nuevoValor, boolListaLlena = 1;
-    int longListaDeNumeros = (sizeof(listaDeNumeros) / sizeof(listaDeNumeros[0]));
-    char respuesta;
+void capturaElementos(int *vector, int *tamaño, int capacidad);
+void desplegarVector(int *vector, int tamaño);
+void correrElementos(int *vector, int posición, int tamaño);
+int determinarPosicion(int *vector, int valor, int tamaño);
+void insertarValor(int *vector, int valor, int *tamaño);
+int vectorLleno(int tamaño, int capacidad);
 
-    // Prototipos de las funciones
-    void capturarElementos(int *vector, int, int);
-    void desplegarVector(int *vector, int);
-    void correrElementos(int *vector, int);
-    void insertarElemento(int *vector, int, int);
-    int determinarPosicion(int *vector, int, int);
-    int vectorLleno(int *vector, int);
+int main() {
+    int capacidad;
+    printf("Ingrese la capacidad del vector: ");
+    scanf("%d", &capacidad);
 
-    // Inicializar el vector
-    while (boolListaLlena)
-    {
-        // Capturar la cantida de elementos que se desean ingresar
-        printf("\nIngrese la cantidad de elementos: ");
-        scanf(" %d", &cantidadElementos);
-
-        if (cantidadElementos <= longListaDeNumeros)
-        {
-            // Llamada a la función
-            capturarElementos(listaDeNumeros, longListaDeNumeros, cantidadElementos);
-            boolListaLlena = 0;
-        }
-        else
-        {
-            printf("La cantidad de elementos no puede ser mayor a %d, vuelva a intentarlo\n", longListaDeNumeros);
-        }
+    int *vector = (int *)malloc(capacidad * sizeof(int));
+    if (vector == NULL) {
+        printf("Error al asignar memoria.\n");
+        return 1;
     }
 
-    while (!boolListaLlena)
-    {
-        // Determinar si el vector está lleno
-        boolListaLlena = vectorLleno(listaDeNumeros, longListaDeNumeros);
+    int tamaño = 0;
+    int valor;
+    char continuar;
 
-        // Si el vector no está lleno se ejecuta el bloque de código
-        if (!boolListaLlena)
-        {
-            // Llamada a la función para desplegar el vector y correr los elementos
-            desplegarVector(listaDeNumeros, longListaDeNumeros);
-            correrElementos(listaDeNumeros, longListaDeNumeros);
+    do {
+        printf("Ingrese un valor: ");
+        scanf("%d", &valor);
+        insertarValor(vector, valor, &tamaño);
+        desplegarVector(vector, tamaño);
 
-            // Preguntar si se desea ingresar otro valor
-            printf("\nDesea ingresar otro valor? (s/n): ");
-            scanf(" %c", &respuesta);
-
-            // Si la respuesta es afirmativa se captura el valor
-            if (respuesta == 's' || respuesta == 'S')
-            {
-                printf("Ingrese el valor a insertar: ");
-                scanf(" %d", &nuevoValor);
-
-                // Determinar la posición en la que se debe colocar el siguiente valor
-                posicionVacia = determinarPosicion(listaDeNumeros, nuevoValor, longListaDeNumeros);
-
-                // Insertar el valor en la posición correspondiente
-                insertarElemento(listaDeNumeros, posicionVacia, nuevoValor);
-            }
-            else
-            {
-                boolListaLlena = 1;
-            }
+        if (vectorLleno(tamaño, capacidad)) {
+            printf("El vector está lleno.\n");
+            break;
         }
-    }
 
-    boolListaLlena = vectorLleno(listaDeNumeros, longListaDeNumeros);
+        printf("¿Desea ingresar otro número? (s/n): ");
+        scanf(" %c", &continuar);
+    } while (continuar == 's' || continuar == 'S');
 
-    // Mensaje de vector lleno
-    if (boolListaLlena)
-    {
-        printf("**************El vector está lleno**************\n");
-    }
-
-    desplegarVector(listaDeNumeros, longListaDeNumeros);
-    printf("\n**************Fin del programa**************\n");
+    free(vector);
     return 0;
 }
 
-// Función para captura de los elementos del vector
-void capturarElementos(int *vector, int longVector, int cantidadElementos)
-{
-    // Capturar y ordenar los elementos del vector
-    for (int iterador = 0; iterador < cantidadElementos; iterador++)
-    {
-        printf("Ingrese el valor %d: ", iterador + 1);
-        scanf(" %d", &vector[iterador]);
+void capturaElementos(int *vector, int *tamaño, int capacidad) {
+    printf("Ingrese el número de elementos: ");
+    scanf("%d", tamaño);
+    if (*tamaño > capacidad) {
+        printf("El número de elementos excede la capacidad del vector.\n");
+        *tamaño = capacidad;
     }
-
-    // Ordenar los elementos del vector
-    for (int iterador = 0; iterador < cantidadElementos; iterador++)
-    {
-        for (int iterador2 = 0; iterador2 < cantidadElementos; iterador2++)
-        {
-            // Si el elemento actual es menor que el siguiente, se intercambian
-            if (vector[iterador] < vector[iterador2])
-            {
-                int auxiliar = vector[iterador];
-                vector[iterador] = vector[iterador2];
-                vector[iterador2] = auxiliar;
-            }
-        }
-    }
-
-    // Llenar el resto del vector con ceros
-    for (int iterador = cantidadElementos; iterador < longVector; iterador++)
-    {
-        vector[iterador] = 0;
+    for (int i = 0; i < *tamaño; i++) {
+        printf("Elemento %d: ", i + 1);
+        scanf("%d", &vector[i]);
     }
 }
 
-// Función para desplegar el vector
-void desplegarVector(int *vector, int longVector)
-{
-    int iterador;
-
-    printf("\nElementos del vector:\n");
-    // Bucle que imprime los elementos del vector
-    for (int iterador = 0; iterador < longVector; iterador++)
-    {
-        printf("posición %d: %d\n", iterador + 1, vector[iterador]);
+void desplegarVector(int *vector, int tamaño) {
+    printf("Vector: ");
+    for (int i = 0; i < tamaño; i++) {
+        printf("%d ", vector[i]);
     }
     printf("\n");
 }
 
-// Función que permite correr los elementos de un vector a la siguiente posición
-void correrElementos(int *vector, int longVector)
-{
-    int iterador;
-    int auxiliar;
-
-    // Bucle que corre los elementos del vector
-    for (iterador = longVector; iterador >= 0; iterador--)
-    {
-        auxiliar = vector[iterador - 1];
-        vector[iterador] = vector[iterador - 1];
-        vector[iterador - 1] = auxiliar;
+void correrElementos(int *vector, int posición, int tamaño) {
+    for (int i = tamaño; i > posición; i--) {
+        vector[i] = vector[i - 1];
     }
 }
 
-// Función que determina la posición del vector en la que debe colocarse el siguiente valor
-int determinarPosicion(int *vector, int valor, int longVector)
-{
-    int posicion = 0; // Variable que almacena la posición en la que se debe colocar el valor
-
-    // Bucle que busca la posición en la que se debe colocar el valor
-    while (posicion < longVector && vector[posicion] < valor)
-    {
-        posicion++;
+int determinarPosicion(int *vector, int valor, int tamaño) {
+    int pos = 0;
+    while (pos < tamaño && vector[pos] < valor) {
+        pos++;
     }
-
-    // Retornar la posición
-    return posicion;
+    return pos;
 }
 
-// Función que permite insertar un valor en un vector
-void insertarElemento(int *vector, int posicion, int valor)
-{
-    vector[posicion] = valor;
+void insertarValor(int *vector, int valor, int *tamaño) {
+    int pos = determinarPosicion(vector, valor, *tamaño);
+    correrElementos(vector, pos, *tamaño);
+    vector[pos] = valor;
+    (*tamaño)++;
 }
 
-// Función que determina si el vector está lleno o no
-int vectorLleno(int *vector, int tamanoVector)
-{
-    int iterador;
-    int bandera = 1;
-
-    // Bucle que determina si el vector está lleno
-    for (iterador = 0; iterador < tamanoVector; iterador++)
-    {
-        // Si encuentra un valor 0 en el vector, no está lleno
-        if (vector[iterador] == 0)
-        {
-            bandera = 0;
-            return bandera;
-        }
-    }
-
-    return bandera;
+int vectorLleno(int tamaño, int capacidad) {
+    return tamaño >= capacidad;
 }
-
