@@ -28,7 +28,7 @@ int main() {
 
     // Creación de la página web
     fprintf(archivo_HTML, "<!DOCTYPE html>\n");
-    fprintf(archivo_HTML, "<<html lang='en'>\n");
+    fprintf(archivo_HTML, "<html lang='en'>\n");
     fprintf(archivo_HTML, "<head>\n");
     fprintf(archivo_HTML, "<meta charset='UTF-8'>\n");
     fprintf(archivo_HTML, "<meta name='viewport' content='width=device-width, initial-scale=1.0'>\n");
