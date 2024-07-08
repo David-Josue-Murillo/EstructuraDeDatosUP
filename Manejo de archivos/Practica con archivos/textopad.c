@@ -37,8 +37,8 @@ int main() {
     // Cerrar el archivo
     fclose(archivo);
 
-    // Ordenar los datos por nombre
-    ordenarPersonas(personas, numPersonas, compararPorNombre);
+    // Ordenar los datos por nombre (función qsort)
+    qsort(personas, numPersonas, sizeof(struct persona), compararPorNombre);
 
     // Desplegar los datos ordenados
     desplegarPersonas(personas, numPersonas);
@@ -52,7 +52,7 @@ int verificarExisteArchivo(FILE *archivo) {
     return archivo != NULL;
 }
 
-// Funci�n que lee los datos del archivo usando fscanf
+// Funcion que lee los datos del archivo usando fscanf
 void leerDatos(FILE *archivo, struct persona personas[], int *numPersonas) {
     *numPersonas = 0;
     while (fscanf(archivo, "%d %f %[^\n]", &personas[*numPersonas].edad, &personas[*numPersonas].salario, personas[*numPersonas].nombre) == 3) {
@@ -60,12 +60,7 @@ void leerDatos(FILE *archivo, struct persona personas[], int *numPersonas) {
     }
 }
 
-// Funci�n que ordena los datos por nombre
-void ordenarPersonas(struct persona personas[], int numPersonas, int (*comparar)(const void *, const void *)) {
-    qsort(personas, numPersonas, sizeof(struct persona), comparar);
-}
-
-// Funci�n que despliega los datos ordenados
+// Funcion que despliega los datos ordenados
 void desplegarPersonas(struct persona personas[], int numPersonas) {
     int i;
 	for (i = 0; i <= numPersonas; i++) {
@@ -73,7 +68,7 @@ void desplegarPersonas(struct persona personas[], int numPersonas) {
     }
 }
 
-// Funci�n que compara dos personas por su nombre
+// Funcion que compara dos personas por su nombre
 int compararPorNombre(const void *a, const void *b) {
     struct persona *personaA = (struct persona *)a;
     struct persona *personaB = (struct persona *)b;
