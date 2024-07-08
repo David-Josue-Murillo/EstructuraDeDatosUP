@@ -6,10 +6,10 @@ int main() {
     char filename[] = "example.txt";
 
     // Apertura del archivo en modo escritura
-    file = fopen(filename, "w");
-    if (file == NULL) {
-        perror("Error al abrir el archivo para escritura");
-        return 1;
+    file = fopen(filename, "w"); // w crea un archivo nuevo si no existe, o sobreescribe el contenido del archivo existente
+    if (file == NULL) { // Si no se puede abrir el archivo
+        perror("Error al abrir el archivo para escritura"); // Imprime un mensaje de error
+        return 1;  // Finaliza el programa con un código de error
     }
 
     // Escribir datos en el archivo
