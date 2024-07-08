@@ -7,6 +7,11 @@ int main() {
     printf("Ingrese la capacidad del vector: ");
     scanf("%d", &capacidad);
 
+    if(capacidad < 1){
+        printf("Error: La capacidad debe ser mayor o igual a 1.\n");
+        return 1;
+    }
+    
     int *vector = (int *)malloc(capacidad * sizeof(int));
     if (vector == NULL) {
         printf("Error al asignar memoria.\n");

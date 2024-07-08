@@ -1,5 +1,4 @@
-#ifndef FUNCIONES_H
-#define FUNCIONES_H
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include "funciones.h" 
@@ -13,4 +12,3 @@ int determinarPosicion(int *vector, int valor, int tamano);
 void insertarValor(int *vector, int valor, int *tamano);
 int vectorLleno(int tamano, int capacidad);
 
-#endif
