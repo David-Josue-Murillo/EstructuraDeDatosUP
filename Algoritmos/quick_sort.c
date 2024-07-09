@@ -1,33 +1,33 @@
 #include <stdio.h>
 
 // Función para intercambiar dos elementos
-void swap(int* a, int* b) {
-    int t = *a;
-    *a = *b;
-    *b = t;
+void swap(int* elemento_a, int* elemento_b) {
+    int auxiliar = *elemento_a;
+    *elemento_a = *elemento_b;
+    *elemento_b = auxiliar;
 }
 
 // Función de partición
-int partition(int arr[], int low, int high) {
-    int pivot = arr[high];
-    int i = (low - 1);
+int partition(int arr[], int menor, int mayor) {
+    int pivot = arr[mayor];
+    int i = (menor - 1);
 
-    for (int j = low; j <= high - 1; j++) {
+    for (int j = menor; j <= mayor - 1; j++) {
         if (arr[j] < pivot) {
             i++;
             swap(&arr[i], &arr[j]);
         }
     }
-    swap(&arr[i + 1], &arr[high]);
+    swap(&arr[i + 1], &arr[mayor]);
     return (i + 1);
 }
 
 // Función QuickSort
-void quickSort(int arr[], int low, int high) {
-    if (low < high) {
-        int pi = partition(arr, low, high);
-        quickSort(arr, low, pi - 1);
-        quickSort(arr, pi + 1, high);
+void quickSort(int arr[], int menor, int mayor) {
+    if (menor < mayor) {
+        int pi = partition(arr, menor, mayor);
+        quickSort(arr, menor, pi - 1);
+        quickSort(arr, pi + 1, mayor);
     }
 }
 
@@ -42,11 +42,16 @@ void printArray(int arr[], int size) {
 // Programa principal
 int main() {
     int arr[] = {10, 7, 8, 9, 1, 5};
-    int n = sizeof(arr) / sizeof(arr[0]);
+    int cantidad_elementos = sizeof(arr) / sizeof(arr[0]);
+
+    // Imprimir el array original
     printf("Array original: \n");
-    printArray(arr, n);
-    quickSort(arr, 0, n - 1);
-    printf("Array ordenado: \n");
-    printArray(arr, n);
+    printArray(arr, cantidad_elementos); // Obtener el array original
+
+    // Ordenar el array
+    quickSort(arr, 0, cantidad_elementos - 1);
+    printf("Array ordenado: \n"); // Imprimir el array ordenado
+    printArray(arr, cantidad_elementos); // Obtener el array ordenado
+    
     return 0;
 }

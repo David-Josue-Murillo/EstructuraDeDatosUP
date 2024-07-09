@@ -74,4 +74,3 @@ int compararPorNombre(const void *a, const void *b) {
     struct persona *personaB = (struct persona *)b;
     return strcmp(personaA->nombre, personaB->nombre);
 }
-
